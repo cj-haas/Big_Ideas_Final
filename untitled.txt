@@ -1,0 +1,135 @@
+import pandas as pd
+import numpy as np
+import geopandas
+%matplotlib inline
+
+trees = pd.read_csv("trees.csv", low_memory=False)
+# filter to important info
+trees['num'] =1
+tree_den = trees.groupby("neighborhood").sum()['diameter_base_height']
+num_trees = trees.groupby("neighborhood").sum()['num']
+num_trees.sort_values(ascending=False)
+tree_den.sort_values(ascending=False)
+print(num_trees)
+#tree_den = num_trees
+neighborhoods = geopandas.read_file("Neighborhoods/Neighborhoods_.shp")
+#neighborhoods.plot() # plot the geopandas dataframe
+nbhds = geopandas.read_file("Neighborhoods/Neighborhoods_.dbf") # read in the shapefile
+#nbhds.plot() # plot the geopandas dataframe
+sqmiles = nbhds.groupby('hood').sum()['sqmiles']
+
+sqmiles['Perry North'] = 1.212
+
+for index, value in num_trees.items():
+   num_trees[index] = (num_trees[index]*10)/(sqmiles[index] *10)
+
+for index, value in tree_den.items():
+   tree_den[index] = (tree_den[index]*10)/(sqmiles[index] *10)
+den_per_tree = tree_den
+for index, value in den_per_tree.items():
+   den_per_tree[index] = tree_den[index]/(num_trees[index])
+
+num_trees.sort_values(ascending=False)
+tree_den.sort_values(ascending=False)
+#print(num_trees)
+
+num_trees_map = neighborhoods.merge(num_trees, how='left', left_on='hood', right_on='neighborhood')
+tree_den_map = neighborhoods.merge(tree_den, how='left', left_on='hood', right_on='neighborhood')
+
+# look at the head to confirm it merged correctly
+#trees_map[['hood','diameter_base_height','geometry']].head()
+
+#trees_map.plot(column='diameter_base_height')
+tree_den_map.plot(column='diameter_base_height', # set the data to be used for coloring
+               cmap='Greens',              # choose a color palette
+               edgecolor="black",        # outline the districts in white
+               legend=True,              # show the legend
+               legend_kwds={'label': "diameter_base_height"}, # label the legend
+                    # set the size
+                # set disctricts with no data to gray
+               )
+num_trees_map.plot(column='num', # set the data to be used for coloring
+               cmap='Greens',              # choose a color palette
+               edgecolor="black",        # outline the districts in white
+               legend=True,              # show the legend
+               legend_kwds={'label': "trees per square mile"}, # label the legend
+                    # set the size
+                # set disctricts with no data to gray
+               )
+treemerge = num_trees_map.merge(den_per_tree, how='left', left_on='hood', right_on='neighborhood')
+
+treemerge.plot(column='diameter_base_height', # set the data to be used for coloring
+               cmap='Greens',              # choose a color palette
+               edgecolor="black",        # outline the districts in white
+               legend=True,              # show the legend
+               legend_kwds={'label': "trees per square mile"}, # label the legend
+                    # set the size
+                # set disctricts with no data to gray
+               )
+               
+               
+               
+               
+               
+               
+               
+          
+          
+          
+          
+          
+          import pandas as pd
+import numpy as np
+import geopandas
+%matplotlib inline
+
+trees = pd.read_csv("trees.csv", low_memory=False)
+# filter to important info
+trees['num'] =1
+tree_den = trees.groupby("neighborhood").sum()['diameter_base_height']
+num_trees = trees.groupby("neighborhood").sum()['num']
+num_trees.sort_values(ascending=False)
+tree_den.sort_values(ascending=False)
+print(num_trees)
+#tree_den = num_trees
+neighborhoods = geopandas.read_file("Neighborhoods/Neighborhoods_.shp")
+#neighborhoods.plot() # plot the geopandas dataframe
+nbhds = geopandas.read_file("Neighborhoods/Neighborhoods_.dbf") # read in the shapefile
+#nbhds.plot() # plot the geopandas dataframe
+sqmiles = nbhds.groupby('hood').sum()['sqmiles']
+
+sqmiles['Perry North'] = 1.212
+
+for index, value in num_trees.items():
+   num_trees[index] = (num_trees[index]*10)/(sqmiles[index] *10)
+
+for index, value in tree_den.items():
+   tree_den[index] = (tree_den[index]*10)/(sqmiles[index] *10)
+
+num_trees.sort_values(ascending=False)
+tree_den.sort_values(ascending=False)
+#print(num_trees)
+
+num_trees_map = neighborhoods.merge(num_trees, how='left', left_on='hood', right_on='neighborhood')
+tree_den_map = neighborhoods.merge(tree_den, how='left', left_on='hood', right_on='neighborhood')
+
+# look at the head to confirm it merged correctly
+#trees_map[['hood','diameter_base_height','geometry']].head()
+
+#trees_map.plot(column='diameter_base_height')
+tree_den_map.plot(column='diameter_base_height', # set the data to be used for coloring
+               cmap='Greens',              # choose a color palette
+               edgecolor="black",        # outline the districts in white
+               legend=True,              # show the legend
+               legend_kwds={'label': "diameter_base_height"}, # label the legend
+                    # set the size
+                # set disctricts with no data to gray
+               )
+num_trees_map.plot(column='num', # set the data to be used for coloring
+               cmap='Greens',              # choose a color palette
+               edgecolor="black",        # outline the districts in white
+               legend=True,              # show the legend
+               legend_kwds={'label': "trees per square mile"}, # label the legend
+                    # set the size
+                # set disctricts with no data to gray
+               )
