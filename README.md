@@ -4,13 +4,10 @@ This project was completed for the final project of CMPINF 0010 by the buck team
 
 This project was completed using Python written in Jupytr Notebooks. The libraries implemented include PANDAS, GeoPANDAS, matplotlib, seaborn, and sklearn.
 
-Tree Data:
-https://data.wprdc.org/dataset/city-trees
-Population Data:
-https://data.wprdc.org/dataset/pgh
-Park Data:
-https://data.wprdc.org/dataset/parks
-https://data.wprdc.org/dataset/parks1
-Road Data:
-https://data.wprdc.org/dataset/city-of-pittsburgh-markings
-https://data.wprdc.org/dataset/city-of-pittsburgh-signalized-intersections
+Tree Data: https://data.wprdc.org/dataset/city-trees
+
+Population Data: https://data.wprdc.org/dataset/pgh
+
+Park Data: https://data.wprdc.org/dataset/parks , https://data.wprdc.org/dataset/parks1
+
+Road Data: https://data.wprdc.org/dataset/city-of-pittsburgh-markings , https://data.wprdc.org/dataset/city-of-pittsburgh-signalized-intersections
